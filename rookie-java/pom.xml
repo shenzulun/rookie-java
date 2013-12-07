@@ -3,7 +3,6 @@
   <groupId>org.magen</groupId>
   <artifactId>rookie-java</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
   <name>rookie-java</name>
   <description>learing</description>
   <dependencies>

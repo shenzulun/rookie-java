@@ -12,10 +12,7 @@
         <property name="connection.url">jdbc:oracle:thin:@localhost:1521:bbspdb</property>
         <property name="connection.username">szl</property>
         <property name="connection.password">12358</property>
-
-        <property name="connection.pool_size">10</property>
-
-        <!-- SQL dialect -->
+		 <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
 
         <!-- Disable the second-level cache  -->
@@ -29,6 +26,23 @@
         <!-- 
         <property name="hbm2ddl.auto">update</property>
 		 -->
+		 
+		<!-- c3p0 settings -->
+		<property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>		
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <!-- 获得连接的超时时间,如果超过这个时间,会抛出异常，单位毫秒 -->        
+        <property name="hibernate.c3p0.timeout">5000</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <!-- 每隔120秒检查连接池里的空闲连接 ，单位秒-->
+        <property name="hibernate.c3p0.idle_test_period">1200</property>
+        <!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 -->
+        <property name="hibernate.c3p0.acquire_increment">2</property>
+        <!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
+        <property name="hibernate.c3p0.maxIdleTime">1800</property>
+
+
+       
         <!-- Names the annotated entity class -->
         <mapping class="org.magen.test.domain.Book"/>
 
