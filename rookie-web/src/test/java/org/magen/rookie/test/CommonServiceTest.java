@@ -22,6 +22,12 @@ public class CommonServiceTest extends BaseTest{
 	}
 	
 	@Test
+	public void testSave(){
+		Book book = commonService.save(new Book("hello","t1"));
+		log.info("save a new book:"+book.getName());
+	}
+	
+	@Test
 	public void testListAll(){
 		 List<Book> books = commonService.listAll(Book.class);
 		 for(Book book : books){

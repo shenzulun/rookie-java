@@ -1,6 +1,7 @@
 package org.magen.rookie.test;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,5 +20,10 @@ public class BaseTest {
 	@Before
 	public void before(){
 		
+	}
+	
+	@Test
+	public void testBase(){
+		log.info("run..");
 	}
 }

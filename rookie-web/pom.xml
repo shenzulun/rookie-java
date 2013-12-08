@@ -6,6 +6,9 @@
   <packaging>war</packaging>
   <name>rookie-web</name>
   <description>learning</description>
+  <properties>
+	<argLine>-Dfile.encoding=UTF-8</argLine>
+  </properties>
   <dependencies>
   	<dependency>
   		<groupId>org.hibernate</groupId>
@@ -97,6 +100,23 @@
   		<artifactId>druid</artifactId>
   		<version>1.0.0</version>
   	</dependency>
+  	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>2.5</version>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>jstl</groupId>
+  		<artifactId>jstl</artifactId>
+  		<version>1.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.servlet.jsp</groupId>
+  		<artifactId>jsp-api</artifactId>
+  		<version>2.2</version>
+  		<scope>provided</scope>
+  	</dependency>
   </dependencies>
   <build>
   	<plugins>
@@ -125,7 +145,7 @@
                      <tasks>
                          <!--利用ant的copy命令复制文件-->
                          <copy todir="C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.47\conf\Catalina\localhost\" 
-                         	file="C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.47\backup\rookie-web.xml" />
+                         	file="C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.47\backup\rookie-web1.xml" />
                      </tasks>
                  </configuration>
                  <goals>
