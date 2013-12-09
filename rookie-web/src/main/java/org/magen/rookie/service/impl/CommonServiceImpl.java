@@ -2,6 +2,7 @@ package org.magen.rookie.service.impl;
 
 import org.magen.rookie.entity.AbstractModel;
 import org.magen.rookie.repository.ICommonDao;
+import org.magen.rookie.repository.util.OrderTool;
 import org.magen.rookie.service.ICommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,5 +56,11 @@ public class CommonServiceImpl implements ICommonService {
     public <T extends AbstractModel> List<T> listAll(Class<T> entityClass) {
         return commonDao.listAll(entityClass);
     }
+
+	@Override
+	public <T extends AbstractModel> List<T> listAll(Class<T> entityClass,
+			OrderTool order) {
+		return commonDao.listAll(entityClass, order);
+	}
 
 }

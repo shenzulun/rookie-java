@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.magen.rookie.entity.AbstractModel;
+import org.magen.rookie.repository.util.OrderTool;
 
 public interface ICommonService {
     
@@ -24,5 +25,7 @@ public interface ICommonService {
     public <T extends AbstractModel> int countAll(Class<T> entityClass);
     
     public <T extends AbstractModel> List<T> listAll(Class<T> entityClass);
+    
+    public <T extends AbstractModel> List<T> listAll(Class<T> entityClass,OrderTool order);
         
 }

@@ -6,9 +6,11 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.magen.rookie.entity.AbstractModel;
 import org.magen.rookie.repository.ICommonDao;
+import org.magen.rookie.repository.util.OrderTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +70,6 @@ public class CommonDAOImpl implements ICommonDao{
 	@SuppressWarnings("unchecked")
 	public <T extends AbstractModel> List<T> listAll(Class<T> entityClass) {
 		Criteria criteria = getSession().createCriteria(entityClass);
-		//criteria.setProjection(Projections.rowCount());
 		return criteria.list();
 	}
 	
@@ -82,6 +83,14 @@ public class CommonDAOImpl implements ICommonDao{
 			int pn, int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends AbstractModel> List<T> listAll(Class<T> entityClass,
+			OrderTool order) {
+		Criteria criteria = getSession().createCriteria(entityClass);
+		order.build(criteria);
+		return criteria.list();
 	}
 
 }
