@@ -39,8 +39,14 @@
 	<logger name="org.magen.rookie" level="INFO" />
 
 	<!--log4jdbc -->
+	<!-- 
 	<logger name="jdbc.sqltiming" level="INFO"/>
-	
+	 -->
+	<!-- druid -->
+	<logger name="druid.sql.DataSource" level="INFO,STDOUT" />
+	<logger name="druid.sql.Connection" level="INFO,STDOUT" />
+	<logger name="druid.sql.Statement" level="INFO,STDOUT" />
+	<logger name="druid.sql.ResultSet" level="INFO,STDOUT" />
 	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
 	<!-- 
     <logger name="org.hibernate" level="WARN"/>
@@ -49,6 +55,7 @@
     <logger name="org.apache" level="WARN"/>
   	-->
     <!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
+    <logger name="org.hibernate.cache" value="INFO,STDOUT" />
     <!--
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
     <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/>
