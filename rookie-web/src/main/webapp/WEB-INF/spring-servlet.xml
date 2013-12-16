@@ -55,5 +55,6 @@
                   <prop key="java.lang.Throwable">error/500</prop>
             </props>
         </property>
+        <property name="warnLogCategory" value="WARN" />
     </bean>
 </beans>

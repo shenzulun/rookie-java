@@ -6,17 +6,17 @@
   	<encoder>
 		<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 	</encoder>
-  	<!--  
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-    </layout>
-    -->
   </appender>
   <!-- 文件输出日志 (文件大小策略进行文件输出，超过指定大小对文件备份)-->
-  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>logs/rookie-run.log</File>
+  <appender name="FILE-INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+  		<level>INFO</level>
+  		<onMatch>ACCEPT</onMatch>
+  		<onMismatch></onMismatch>
+  	</filter>
+    <File>logs/systemout.log</File>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-		<fileNamePattern>logs/rookie-run.%d{yyyy-MM-dd}.log</fileNamePattern>
+		<fileNamePattern>logs/out/systemout.%d{yyyy-MM-dd}.log</fileNamePattern>
 	</rollingPolicy>
 	<encoder>
 		<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -30,11 +30,42 @@
     <triggeringPolicy  class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
       <MaxFileSize>100MB</MaxFileSize>
     </triggeringPolicy>
-    <layout class="ch.qos.logback.classic.PatternLayout">
-      <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
-    </layout>
     -->
   </appender>
+  <appender name="FILE-WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  	<filter class="ch.qos.logback.classic.filter.LevelFilter">
+  		<level>WARN</level>
+  		<onMatch>ACCEPT</onMatch>
+  		<onMismatch>DENY </onMismatch>
+  	</filter>
+    <File>logs/systemerr.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>logs/err/systemerr.%d{yyyy-MM-dd}.log</fileNamePattern>
+	</rollingPolicy>
+	<encoder>
+		<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+	</encoder>
+	</appender>
+	
+	<!-- record for SQL -->
+	<appender name="FILE-SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  	<filter class="ch.qos.logback.classic.filter.LevelFilter">
+  		<level>DEBUG</level>
+  		<onMatch>ACCEPT</onMatch>
+  		<onMismatch>DENY</onMismatch>
+  	</filter>
+  	<File>logs/sql/recordsql.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>logs/sql/recordsql.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+		<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+			<maxFileSize>100KB</maxFileSize>
+		</timeBasedFileNamingAndTriggeringPolicy>
+	</rollingPolicy>
+	<encoder>
+		<pattern>%d{HH:mm:ss.SSS} - %msg%n</pattern>
+	</encoder>
+	</appender>
+	
   <!-- project default level -->
 	<logger name="org.magen.rookie" level="INFO" />
 
@@ -43,10 +74,18 @@
 	<logger name="jdbc.sqltiming" level="INFO"/>
 	 -->
 	<!-- druid -->
-	<logger name="druid.sql.DataSource" level="INFO,STDOUT" />
-	<logger name="druid.sql.Connection" level="INFO,STDOUT" />
-	<logger name="druid.sql.Statement" level="INFO,STDOUT" />
-	<logger name="druid.sql.ResultSet" level="INFO,STDOUT" />
+	<logger name="druid.sql.DataSource" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE-SQL"/>		
+	</logger>
+	<logger name="druid.sql.Connection" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE-SQL"/>		
+	</logger>
+	<logger name="druid.sql.Statement" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE-SQL"/>		
+	</logger>
+	<logger name="druid.sql.ResultSet" level="DEBUG" additivity="false">
+		<appender-ref ref="FILE-SQL"/>		
+	</logger>
 	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
 	<!-- 
     <logger name="org.hibernate" level="WARN"/>
@@ -55,7 +94,7 @@
     <logger name="org.apache" level="WARN"/>
   	-->
     <!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
-    <logger name="org.hibernate.cache" value="INFO,STDOUT" />
+    <logger name="org.hibernate.cache" value="INFO" />
     <!--
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
     <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/>
@@ -63,9 +102,13 @@
     <logger name="org.hibernate.engine.QueryParameters" level="DEBUG"/>
     <logger name="org.hibernate.engine.query.HQLQueryPlan" level="DEBUG"/>
       -->
-	<root level="WARN">
+     
+    <logger name="org.springframework" value="INFO" />
+    <logger name="org.springframework.web.servlet.handler" value="WARN" />
+	<root level="INFO">
 		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
+		<appender-ref ref="FILE-INFO" />
+		<appender-ref ref="FILE-WARN" />
 	</root>
   <!--这里指定logger name 是为jmx设置日志级别做铺垫 -->
   <!-- 
