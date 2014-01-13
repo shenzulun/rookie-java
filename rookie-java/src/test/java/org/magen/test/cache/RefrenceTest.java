@@ -4,6 +4,7 @@ import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 
 import org.junit.Test;
+import org.magen.cache.AbstractModel;
 
 public class RefrenceTest {
 
@@ -51,5 +52,10 @@ public class RefrenceTest {
 		void show(){
 			System.out.println("hello " + desc);
 		}
+	}
+	
+	@Test
+	public void testModel(){
+		
 	}
 }
