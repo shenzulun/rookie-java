@@ -5,12 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "BOOK")
-@SequenceGenerator(name="seq",allocationSize=1,sequenceName="book_sequence")
 public class Book extends AbstractModel{
 	private static final long serialVersionUID = 1L;
 	private Long id;
@@ -25,7 +23,7 @@ public class Book extends AbstractModel{
 	}
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="seq")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

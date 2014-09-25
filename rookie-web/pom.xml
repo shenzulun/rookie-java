@@ -51,11 +51,6 @@
   		<version>2.6</version>
   	</dependency>
   	<dependency>
-  		<groupId>com.oracle</groupId>
-  		<artifactId>ojdbc14</artifactId>
-  		<version>10.2.0.1.0</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.slf4j</groupId>
   		<artifactId>slf4j-api</artifactId>
   		<version>1.7.5</version>
@@ -127,9 +122,29 @@
   		<artifactId>jcl-over-slf4j</artifactId>
   		<version>1.7.5</version>
   	</dependency>
+  	<dependency>
+	  <groupId>mysql</groupId>
+	  <artifactId>mysql-connector-java</artifactId>
+	  <version>5.1.22</version>
+	</dependency>
   </dependencies>
   <build>
   	<plugins>
+  		<plugin>
+			  <groupId>org.eclipse.jetty</groupId>
+			  <artifactId>jetty-maven-plugin</artifactId>
+			  <version>9.2.0.M0</version>
+			  <configuration>
+			  	
+			    <jettyXml>${project.basedir}/src/main/webapp/jetty/jetty.xml,${project.basedir}/src/main/webapp/jetty/jetty-http.xml,${project.basedir}/src/main/webapp/jetty/jetty-ssl.xml,${project.basedir}/src/main/webapp/jetty/jetty-https.xml</jettyXml>
+			     
+			     <scanIntervalSeconds>5</scanIntervalSeconds>
+			     <webApp>
+			      <contextPath>/rookie-web</contextPath>
+			     </webApp>
+			  </configuration>
+		</plugin>
+  		<!-- 
   		<plugin>  
 		     <groupId>org.apache.tomcat.maven</groupId>  
 		     <artifactId>tomcat7-maven-plugin</artifactId>  
@@ -139,7 +154,7 @@
 		         <server>tomcat</server>
 		         <username>admin</username>
 		         <password>admin</password>
-		          <path>/rookie-web</path><!--根据工程打包名字进行修改-->
+		          <path>/rookie-web</path>
 		     </configuration>  
 		</plugin>
 		
@@ -148,14 +163,12 @@
           <artifactId>maven-antrun-plugin</artifactId>
           <version>1.7</version>
           <executions>
-              <execution>
-                 <!--在package阶段运行-->
+              <execution>            
                  <phase>package</phase>
                  <configuration>
                      <tasks>
-                         <!--利用ant的copy命令复制文件-->
-                         <copy todir="C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.47\conf\Catalina\localhost\" 
-                         	file="C:\Program Files\Apache Software Foundation\apache-tomcat-7.0.47\backup\rookie-web1.xml" />
+                         <copy todir="F:\dev\tools\apache\apache-tomcat-7.0.55\conf\Catalina\localhost\" 
+                         	file="F:\dev\tools\apache\apache-tomcat-7.0.55\backup\rookie-web1.xml" />
                      </tasks>
                  </configuration>
                  <goals>
@@ -164,6 +177,7 @@
               </execution>
           </executions>
         </plugin>
+        -->
   	</plugins>
   </build>
   
